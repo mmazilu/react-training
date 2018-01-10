@@ -43,9 +43,11 @@ export default class Header extends Component {
 
     componentDidMount() {
         console.log("=== did mount");
+        console.log(window.location);
+        console.log(this.props);
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         console.log("=== received props");
     }
 
@@ -55,12 +57,25 @@ export default class Header extends Component {
 
     render() {
         console.log("=== rendering");
+        console.log(this.props);
+        console.log(window.location.pathname);
         return (
             <AppBar
                 iconClassNameRight="muidocs-icon-navigation-expand-more">
-                <Link to="/catalog"><FlatButton label="Catalog" secondary={this.state.active===CATALOG} onClick={this.catalogClick}/></Link>
-                <FlatButton label="Products" secondary={this.state.active===PRODUCTS} onClick={this.productsClick}/>
-                <FlatButton label="Orders" secondary={this.state.active===ORDERS} onClick={this.ordersClick}/>
+
+                <Link to="/catalog">
+                    <FlatButton
+                        label="Catalog"
+                        secondary={this.state.active===CATALOG}
+                        onClick={this.catalogClick}
+                    />
+                </Link>
+                <Link to="/product">
+                    <FlatButton label="Products" secondary={this.state.active===PRODUCTS} onClick={this.productsClick}/>
+                </Link>
+                <Link to="/orders">
+                    <FlatButton label="Orders" secondary={this.state.active===ORDERS} onClick={this.ordersClick}/>
+                </Link>
             </AppBar>
         )
     }
