@@ -1,43 +1,23 @@
 import React, { Component } from 'react';
 
-import CatalogList from './CatalogList';
 
+import CatalogListing from './CatalogListing';
+
+const tableData = [
+    {id: 1,
+    name:"gigi"},
+    {id: 2,
+    name:"gigi2"},
+    {id: 3,
+    name:"gigi3"},
+    {id: 4,
+    name:"gigi4"}
+];
 export default class Catalog extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            gigi: true,
-            catalogs: [
-                {
-                    id:1,
-                    produse:["a1", "a2"]
-                },
-                {
-                    id:2,
-                    produse:["b1", "b2"]
-                },
-                {
-                    id:3,
-                    produse:["c1", "c2"]
-                }
-            ]
-        };
-        this.changeCatalog = this.changeCatalog.bind(this);
-    }
 
-    changeCatalog() {
-        // let newCat = this.state.catalogs;
-        // this.state.catalogs.push({
-        //     id:4,
-        //     produse:["d1", "d2"]
-        // });
-        this.state.catalogs[0].produse[0]="zz";
-        this.setState({gigi:false});
 
-        // newCat.push({
-        //     id:5,
-        //     produse:["e1", "e2"]
-        // });
     }
 
     render() {
@@ -45,7 +25,7 @@ export default class Catalog extends Component {
         return (
             <div>
                 <span>Catalog</span>
-                <CatalogList catalogs={this.state.catalogs} changeCatalog={this.changeCatalog}/>
+                <CatalogListing data={tableData}/>
             </div>
         )
     }

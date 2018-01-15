@@ -19,7 +19,6 @@ const history = createBrowserHistory();
 
 class App extends Component {
   render() {
-      console.log("render main app");
     return (
         <Router history={history}>
             <MuiThemeProvider>
@@ -27,7 +26,7 @@ class App extends Component {
                   <Header/>
                   <Route path="/catalog" component={Catalog}/>
                   <Route path="/product" component={Product}/>
-                  <Route path="/orders" component={Orders}/>
+                  <Route exact path="/orders" component={Orders}/>
               </div>
             </MuiThemeProvider>
         </Router>
