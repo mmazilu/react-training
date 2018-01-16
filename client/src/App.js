@@ -18,20 +18,21 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 
 class App extends Component {
-  render() {
-    return (
-        <Router history={history}>
-            <MuiThemeProvider>
-              <div className="App">
-                  <Header/>
-                  <Route path="/catalog" component={Catalog}/>
-                  <Route path="/product" component={Product}/>
-                  <Route exact path="/orders" component={Orders}/>
-              </div>
-            </MuiThemeProvider>
-        </Router>
-    );
-  }
+    render() {
+        return (
+            <Router history={history}>
+                <MuiThemeProvider>
+                    <div className="App">
+                        <Header />
+                        <Route path="/catalog" component={Catalog} />
+                        <Route path="/product" component={Product} />
+                        <Route exact path="/orders" component={Orders} />
+                        <Route exact path="/orders/id" component={Orders} />
+                    </div>
+                </MuiThemeProvider>
+            </Router>
+        );
+    }
 }
 
 export default App;
