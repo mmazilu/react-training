@@ -20,8 +20,14 @@ class OrdersListing extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    console.log("==== listing did mount");
+  }
+
   render() {
-    const { data } = this.props;
+    if (this.props.data === null) {
+      return <span>Loading</span>
+    }
     return (
       <div>
         <Table multiSelectable={true} onRowSelection={this.props.getChecked}>
@@ -34,7 +40,7 @@ class OrdersListing extends Component {
           </TableHeader>
           <TableBody deselectOnClickaway={false}>
             {
-              data.map(data => {
+                this.props.data.map(data => {
                 return (
                   <TableRow key={"catalog-listing-row-" + data.id}>
                     <TableRowColumn>{data.id}</TableRowColumn>

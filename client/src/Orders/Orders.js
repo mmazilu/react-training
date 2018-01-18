@@ -4,17 +4,13 @@ import OrdersListing from './OrdersListing';
 import RaisedButton from 'material-ui/RaisedButton';
 import Toolbar from 'material-ui/Toolbar';
 
+import axios from 'axios';
 
 class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orders: [{ id: 1, order_name: 'order1' },
-            { id: 2, order_name: 'order2' },
-            { id: 3, order_name: 'order3' },
-            { id: 4, order_name: 'order4' }
-            ],
-            new_order: ''
+            orders: null
         };
         this.table_rows = [];
         this.handleAdd = this.handleAdd.bind(this);
@@ -23,14 +19,22 @@ class Orders extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    shouldComponentUpdate() {
-        return true;
+    componentDidMount() {
+        console.log(" ===== orders did mount");
+        this.currentTs = new Date();
+        axios
+            .get("/api/orders.json")
+            .then((response) => {
+                setTimeout(()=>{
+                    console.log(" ===== orders setting state");
+                    console.log(window.current);
+                    window.current--;
+                    this.setState({orders: response.data});
+                }, 1000 * window.current * 2)
+            });
     }
 
-
     render() {
-        console.log("=== rendering orders");
-        console.log(this.state.orders);
         return (
             <div>
                 <Toolbar style={{ alignItems: 'center' }}>

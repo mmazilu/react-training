@@ -18,6 +18,11 @@ import createBrowserHistory from 'history/createBrowserHistory';
 const history = createBrowserHistory();
 
 class App extends Component {
+
+    componentDidMount(){
+        window.current = 6;
+    }
+
     render() {
         return (
             <Router history={history}>
