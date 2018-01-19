@@ -20,10 +20,6 @@ class OrdersListing extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    console.log("==== listing did mount");
-  }
-
   render() {
     if (this.props.data === null) {
       return <span>Loading</span>

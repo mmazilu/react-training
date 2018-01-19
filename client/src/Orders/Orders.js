@@ -10,28 +10,55 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orders: null
+            orders: null,
+            requestTs: null
         };
         this.table_rows = [];
         this.handleAdd = this.handleAdd.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.getChecked = this.getChecked.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
+
+        this.handleLoad = this.handleLoad.bind(this);
+        console.log("=== constructor");
     }
 
     componentDidMount() {
         console.log(" ===== orders did mount");
-        this.currentTs = new Date();
+
+        this.setState({requestTs: new Date().getTime()}, this.handleLoad);
+        // this.currentTs = new Date().getTime();
+        window.components.push({ts: this.currentTs, id: window.current, obj: this})
+    }
+
+    handleLoad() {
+        this.url = "/api/orders.json?ts="+this.state.requestTs;
         axios
-            .get("/api/orders.json")
+            .get("/api/orders.json?ts="+this.state.requestTs)
             .then((response) => {
                 setTimeout(()=>{
+                    console.log("====== checking");
+                    console.log(response.config.url);
+                    console.log(this.url);
+                    window.current--;
+                    if (response.config.url!==this.url) {
+                        console.log("Ignoring OOO - ");
+                        console.log(window.components);
+                        return;
+                    }
                     console.log(" ===== orders setting state");
                     console.log(window.current);
-                    window.current--;
+                    console.log(window.components);
+                    response.data.push({id: window.current, order_name: "OOR" + window.current});
                     this.setState({orders: response.data});
                 }, 1000 * window.current * 2)
             });
+    }
+
+    componentWillUnmount() {
+        this.setState({requestTs: 0});
+        // console.log("unmounting - " + this.currentTs);
     }
 
     render() {

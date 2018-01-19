@@ -19,8 +19,9 @@ const history = createBrowserHistory();
 
 class App extends Component {
 
-    componentDidMount(){
+    componentWillMount(){
         window.current = 6;
+        window.components = [];
     }
 
     render() {
