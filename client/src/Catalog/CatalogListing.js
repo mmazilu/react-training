@@ -17,6 +17,7 @@ export default class CatalogListing extends Component {
 
     render() {
         console.log("=== rendering catalog listing");
+
         return (
             <Table>
                 <TableHeader>
@@ -29,7 +30,7 @@ export default class CatalogListing extends Component {
                 <TableBody>
                     {
                         this.props.data.map(data => {
-                            return (
+                             return (
                                 <TableRow key={"catalog-listing-row-"+data.id}>
                                     <TableRowColumn>{data.id}</TableRowColumn>
                                     <TableRowColumn>{data.name}</TableRowColumn>
