@@ -1,6 +1,14 @@
 .add_user {
-    float: left;
+    float: right;
+    display: inline;
 }
+
+.delete_user {
+    float: left;
+    display: inline;
+    margin-left: 100px;
+}
+
 .user_table {
     float: left;
 }

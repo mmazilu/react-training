@@ -19,7 +19,7 @@ class UserListing extends Component {
         console.log(this.props);
 
         return (
-            <Table>
+            <Table multiSelectable={true}>
                 <TableHeader>
                     <TableRow>
                         <TableHeaderColumn>ID</TableHeaderColumn>
@@ -31,14 +31,14 @@ class UserListing extends Component {
                 </TableHeader>
                 <TableBody>
                     {
-                    this.props.data.userData.map(data => {
+                    this.props.data.map(users => {
                         return (
-                            <TableRow key={"users-listing-row-"+data.id}>
-                                <TableRowColumn>{data.id}</TableRowColumn>
-                                <TableRowColumn>{data.name}</TableRowColumn>
-                                <TableRowColumn>{data.email}</TableRowColumn>
-                                <TableRowColumn>{data.isAdmin}</TableRowColumn>
-                                <TableRowColumn><Link to={"/users/"+data.id}>Profile</Link></TableRowColumn>
+                            <TableRow key={"users-listing-row-"+users.id}>
+                                <TableRowColumn>{users.id}</TableRowColumn>
+                                <TableRowColumn>{users.name}</TableRowColumn>
+                                <TableRowColumn>{users.email}</TableRowColumn>
+                                <TableRowColumn>{users.isAdmin}</TableRowColumn>
+                                <TableRowColumn><Link to={"/users/"+users.id}>Profile</Link></TableRowColumn>
                             </TableRow>);
                     })
                     }

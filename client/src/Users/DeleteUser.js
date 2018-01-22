@@ -4,14 +4,13 @@ import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
 import './Users.css';
-import axios from 'axios';
 
-export default class AddUser extends React.Component {
+export default class DeleteUser extends React.Component {
     constructor() {
         super();
         this.state = {
             open: false,
-            //tableData: this.props
+            tableData: this.props
         };
     }
 
@@ -27,33 +26,12 @@ export default class AddUser extends React.Component {
         });
     };
 
-    handleAddUser = () => {
+    handleDeleteUser = () => {
         this.setState({
             open: false,
-        });
-
-        let insertData = this.state;
-        console.log("=================", this.state);
-        axios.post('http://localhost:3001/api/users', {
-            //data: {
-                data: insertData
-
-            //},
         })
-
-            .then(function (response) {
-                console.log(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        console.log(this.state);
     };
-
-    addInput = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
 
     render() {
         const styles = {
@@ -75,44 +53,31 @@ export default class AddUser extends React.Component {
                 onClick={this.handleClose}
             />,
             <FlatButton
-                label="Add User"
+                label="Delete"
                 primary={true}
                 //disabled={true}
                 type="Submit"
-                onClick={this.handleAddUser}
+                onClick={this.handleDeleteUser}
             />,
         ];
 
         return (
             <div>
                 <RaisedButton
-                    label="Add user"
+                    label="Delete User"
                     onClick={this.handleOpen}
                     style={styles.buttons}
-                    className="add_user"
-                    primary={true}
+                    className="delete_user"
+                    secondary={true}
 
                 />
                 <Dialog
-                    title="Add new user"
+                    title="Delete"
                     actions={actions}
                     modal={true}
                     open={this.state.open}
                 >
-                    <div className="input_box">
-                        <TextField
-                            name="name"
-                            style={styles.textField}
-                            hintText="Name and Surname"
-                            onChange={this.addInput}
-                        /><br />
-                        <TextField
-                            name="email"
-                            style={styles.textField}
-                            hintText="E-mail"
-                            onChange={this.addInput}
-                        /><br />
-                    </div>
+                    Are you sure you want to delete those users?
                 </Dialog>
             </div>
         );
