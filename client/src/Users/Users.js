@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+
+import FlatButton from 'material-ui/FlatButton';
+import {Link} from 'react-router-dom';
+
 import  UserListing from './UserListing';
 import { withRouter } from 'react-router';
 import AddUser from './AddUser';
@@ -33,14 +37,25 @@ class Users extends Component {
             });
     }
 
+    handleAddUser = ()=> {
+        userApi
+            .addUser({name: "test1", email: "test1@test.com"})
+            .then(res => {
+                console.log(res);
+            });
+    };
+
 
     render() {
     console.log(this.state.users);
         return (
             <div>
                 <div>
-                    <DeleteUser />
-                    <AddUser />
+                    <Link className="users" to="/users/create">
+                        <FlatButton primary>
+                            Add user
+                        </FlatButton>
+                    </Link>
                 </div>
                 {this.state.error ? <span>messa ussa error</span> :
                     <div className="user_table">

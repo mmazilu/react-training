@@ -30,6 +30,10 @@ let userAPI = {
                 }
                 console.log(error.config);
             });
+    },
+
+    addUser(user) {
+        return axios.post("/api/user", user);
     }
 };
 

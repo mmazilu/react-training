@@ -20,6 +20,17 @@ router.get('/users', function(req, res) {
         });
 });
 
+router.post('/user', function(req, res) {
+    UserController.addUser(
+        (code)=>{
+            res.sendStatus(status);
+        },
+        (users)=>{
+            res.send(users);
+        },
+        req.body);
+});
+
 
 router.get("/orders", function (req, res) {
     setTimeout(()=> {

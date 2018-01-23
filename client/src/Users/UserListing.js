@@ -22,10 +22,8 @@ class UserListing extends Component {
             <Table multiSelectable={true}>
                 <TableHeader>
                     <TableRow>
-                        <TableHeaderColumn>ID</TableHeaderColumn>
                         <TableHeaderColumn>Name and Surname</TableHeaderColumn>
                         <TableHeaderColumn>Email</TableHeaderColumn>
-                        <TableHeaderColumn>Admin</TableHeaderColumn>
                         <TableHeaderColumn>Link to profile</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
@@ -33,12 +31,10 @@ class UserListing extends Component {
                     {
                     this.props.data.map(users => {
                         return (
-                            <TableRow key={"users-listing-row-"+users.id}>
-                                <TableRowColumn>{users.id}</TableRowColumn>
+                            <TableRow key={"users-listing-row-"+users._id}>
                                 <TableRowColumn>{users.name}</TableRowColumn>
                                 <TableRowColumn>{users.email}</TableRowColumn>
-                                <TableRowColumn>{users.isAdmin}</TableRowColumn>
-                                <TableRowColumn><Link to={"/users/"+users.id}>Profile</Link></TableRowColumn>
+                                <TableRowColumn><Link to={"/user/"+users._id}>Profile</Link></TableRowColumn>
                             </TableRow>);
                     })
                     }

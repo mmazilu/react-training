@@ -1,21 +1,49 @@
+var bluebird = require('bluebird');
+var MongoClient = require('mongodb').MongoClient;
+var MongoCollection  = require('mongodb').Collection;
+
+bluebird.promisifyAll(MongoCollection.prototype);
+bluebird.promisifyAll(MongoClient);
+
+const URL ="mongodb://192.168.99.100:27017/eShop";
+
 userController = {
     getUsers: (err, callback) => {
-        callback([
-                     {
-                         "id": "5a5f35a0fc206999f3a68586",
-                         "isAdmin": "false",
-                         "name": "Fay Blackwell",
-                         "email": "fayblackwell@geeketron.com",
-                         "registered": "2014-03-07T10:36:59 -02:00"
-                     },
-                     {
-                         "id": "5a5f35a08e814e6ffc45eb64",
-                         "isAdmin": "false",
-                         "name": "Kristina Baxter",
-                         "email": "kristinabaxter@geeketron.com",
-                         "registered": "2017-06-14T05:25:10 -03:00"
-                     }]);
+        let dbConnection;
+        MongoClient.connectAsync(URL)
+            .then(function(connection) {
+                dbConnection = connection;
+                return connection.db("eShop").collection("users").findAsync({});
+            })
+            .then(function (cursor) {
+                cursor.toArray((err, items) => {
+                    callback(items);
+                });
+            })
+            .finally(() => {dbConnection.close()})
+            .catch((err)=>{
+                console.log(err);
+                err(500);
+            });
+    },
+
+    addUser: (err, callback, record) => {
+        let dbConnection;
+        MongoClient.connectAsync(URL)
+            .then(function(connection) {
+                dbConnection = connection;
+                return connection.db("eShop").collection("users").insertOne(record);
+            })
+            .then(function (doc) {
+                callback(doc);
+            })
+            .finally(() => {dbConnection.close()})
+            .catch((err)=>{
+                console.log(err);
+                err(500);
+            });
     }
+
 };
 
 module.exports = userController;

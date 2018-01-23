@@ -9,9 +9,11 @@ import Product from './Product/Product';
 import Orders from './Orders/Orders';
 import Users from './Users/Users';
 import User from './Users/User';
+import UserContainer from './Users/UserContainer';
 
 import {
     Router,
+    Switch,
     Route
 } from 'react-router-dom';
 
@@ -33,11 +35,14 @@ class App extends Component {
                     <div className="App">
 
                         <Header/>
-                        <Route path="/catalog" component={Catalog}/>
-                        <Route path="/product" component={Product}/>
-                        <Route exact path="/orders" component={Orders}/>
-                        <Route exact path="/users" component={Users}/>
-                        <Route exact path="/users/:id" component={User} />
+                        <Switch>
+                            <Route path="/catalog" component={Catalog}/>
+                            <Route path="/product" component={Product}/>
+                            <Route exact path="/orders" component={Orders}/>
+                            <Route exact path="/users/create" component={UserContainer} />
+                            <Route exact path="/user/:id" component={UserContainer} />
+                            <Route exact path="/users" component={Users}/>
+                        </Switch>
 
                     </div>
                 </MuiThemeProvider>
