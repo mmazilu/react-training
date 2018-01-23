@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import userData from './data.json';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router-dom';
@@ -10,7 +9,7 @@ class User extends Component {
     }
 
     render() {
-        let data = userData;
+        let data = {};
         let pathname = this.props.match.params.id;
         let displayUser = null;
         data.userData.forEach(function(element) {

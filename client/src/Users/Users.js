@@ -3,33 +3,33 @@ import  UserListing from './UserListing';
 import { withRouter } from 'react-router';
 import AddUser from './AddUser';
 import'./Users.css';
-//import userData from './data.json';
 import DeleteUser from "./DeleteUser";
-import axios from 'axios';
-
-
-const  usersURL = "http://localhost:3001/api/users";
+import userApi from './../api/user.api';
 
 class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: [],
+            error: false
         }
     }
 
     componentDidMount() {
 
-        let self = this;
+        // let self = this;
 
-        axios.get(usersURL)
-            .then(response => {
-                self.setState({
-                    users: response.data
+        userApi.getUsers()
+            .then(users => {
+                this.setState({
+                    users: users
                 })
             })
             .catch(error => {
-                console.log('Error fetching and parsing data', error);
+                console.log('Error fetching and parsing data');
+                if (error.status === 404) {
+                    this.setState({error:true});
+                }
             });
     }
 
@@ -42,11 +42,13 @@ class Users extends Component {
                     <DeleteUser />
                     <AddUser />
                 </div>
-                <div className="user_table">
-                    <UserListing
-                        data={this.state.users}
-                    />
-                </div>
+                {this.state.error ? <span>messa ussa error</span> :
+                    <div className="user_table">
+                        <UserListing
+                            data={this.state.users}
+                        />
+                    </div>
+                }
             </div>
         )
     }
